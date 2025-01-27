@@ -5070,7 +5070,7 @@ spec:
     spec:
       containers:
         - name: jaeger
-          image: "docker.io/jaegertracing/all-in-one:1.20"
+          image: "docker.io/jaegertracing/all-in-one:1.52.0"
           env:
             - name: BADGER_EPHEMERAL
               value: "false"
@@ -5366,6 +5366,7 @@ rules:
   - pods
   - pods/log
   - pods/proxy
+  - pods/portforward
   - replicationcontrollers
   - services
   verbs:
@@ -5373,11 +5374,29 @@ rules:
   - list
   - patch
   - watch
+  - create
 - apiGroups: ["extensions", "apps"]
   resources:
   - deployments
   - replicasets
   - statefulsets
+  - daemonsets
+  verbs:
+  - get
+  - list
+  - patch
+  - watch
+- apiGroups: ["extensions.istio.io"]
+  resources:
+  - wasmplugins
+  verbs:
+  - get
+  - list
+  - patch
+  - watch
+- apiGroups: ["telemetry.istio.io"]
+  resources:
+  - telemetries
   verbs:
   - get
   - list
@@ -5545,7 +5564,7 @@ spec:
     spec:
       serviceAccountName: kiali
       containers:
-      - image: "quay.io/kiali/kiali:v1.23"
+      - image: "quay.io/kiali/kiali:v1.74"
         imagePullPolicy: Always
         name: kiali
         command:
