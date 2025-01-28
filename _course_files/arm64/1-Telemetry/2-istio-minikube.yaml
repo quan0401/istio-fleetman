@@ -5374,6 +5374,7 @@ rules:
   - list
   - patch
   - watch
+  - create
 - apiGroups: ["extensions", "apps"]
   resources:
   - deployments
